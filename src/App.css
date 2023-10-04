@@ -36,3 +36,8 @@
     transform: rotate(360deg);
   }
 }
+/* listecharac.css */
+.hovered {
+  color: red; /* Couleur du texte en rouge lors du survol */
+  cursor: pointer; /* Curseur de type main pointer */
+}
