@@ -2,7 +2,6 @@ import { render, screen } from '@testing-library/react';
 import { CharactersList } from './CharactersList';
 import { BrowserRouter } from 'react-router-dom'
 
-
 describe('CharactersList', () => {
 
     it('renders a list of characters', () => {
