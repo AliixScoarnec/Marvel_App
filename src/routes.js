@@ -1,56 +1,36 @@
-import { Outlet, useNavigation } from "react-router";
-import { NavLink } from "react-router-dom";
-import BlogPost from "./components/blog-post";
-import Blog from "./components/blog";
+import Layout from "./Layout";
+import AboutPage from "./pages/AboutPage";
+import ContactPage from "./pages/ContactPage";
+import CharactersPage from "./pages/CharactersPage";
 
+import CharacterDetailPage from "./pages/CharacterDetailPage";
+import { getCharacterById, getCharacters } from "./api/character-api";
 
-const routes =  [
+const routes = [
     {
         path: "/",
-        element: <Root />,
+        element: <Layout />,
         children: [
             {
-                path: "blog",
-                element: <Blog />,
-                loader: () => fetch("https://jsonplaceholder.typicode.com/posts?_limit=10"),
+                path: "/",
+                element: <CharactersPage />,
+                loader: () => getCharacters(),
             },
             {
-                path: "blog/:id",
-                element: <BlogPost />,
+                path: "/characters/:id",
+                element: <CharacterDetailPage />,
+                loader: ({ params }) => getCharacterById(params.id),
             },
-            {
-                path: "contact",
-                element: <div>
-                    Contact
-                </div>,
-            }
+            { 
+                path: "/about", 
+                element: <AboutPage /> 
+            },
+            { 
+                path: "/contact", 
+                element: <ContactPage /> 
+            },
         ],
     },
-    {
-        path: "*",
-        element: <div>Not Found</div>,
-    }
-]
-
-function Root() {
-    const {state} = useNavigation();
-    return (
-        <>
-            <header>
-                <nav>
-                    <NavLink to="/blog">Blog</NavLink>
-                    <NavLink to="/contact">Contact</NavLink>
-                </nav>
-            </header>
-            <div className="content">
-                {state === "loading" && "Loading..."}
-                <Outlet />
-            </div>
-            <footer>
-                Footer
-            </footer>
-        </>
-    );
-}
+];
 
 export default routes;
