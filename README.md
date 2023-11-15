@@ -12,3 +12,5 @@ npm install
 npm start
 
 L'application est accessible à l'adresse http://localhost:3000
+
+## voir si tt les composants fonctionnent correctements
