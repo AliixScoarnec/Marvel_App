@@ -5,12 +5,12 @@
  */
 export const prepareData = (data = []) => {
     const transformData = [
-        { name: 'Force', value: data?.force ||0},
-        { name: 'Intelligence', value: data?.intelligence ||0},
-        { name: 'Energy', value: data?.energy ||0},
-        { name: 'Speed', value: data?.speed ||0},
-        { name: 'Durability', value: data?.durability ||0},
-        { name: 'Fighting', value: data?.fighting ||0}
+        { name: 'Force', value: data?.force },
+        { name: 'Intelligence', value: data?.intelligence },
+        { name: 'Energy', value: data?.energy },
+        { name: 'Speed', value: data?.speed },
+        { name: 'Durability', value: data?.durability },
+        { name: 'Fighting', value: data?.fighting }
     ];
 
     // Remove the elements with undefined values
