@@ -7,9 +7,9 @@ describe('CharactersList', () => {
     it('renders a list of characters', () => {
         // when
         const characters = [
-            { id: 1, name: 'Iron Man' },
-            { id: 2, name: 'Captain America' },
-            { id: 3, name: 'Thor' },
+            { id: 1, name: 'Iron Man',modified: '2014-03-13T14:48:32-0500'},
+            { id: 2, name: 'Captain America',modified: '2014-01-13T14:48:32-0500'},
+            { id: 3, name: 'Thor',modified: '2014-08-13T14:48:32-0500'},
         ];
 
         // then
@@ -29,7 +29,7 @@ describe('CharactersList', () => {
             expect(item).toHaveTextContent(characters[index].name);
 
             // expect each listitem to have a link to the character detail page
-            const link = screen.getByRole('link', { name: characters[index].name });
+            const link = screen.getByTestId(`character-link-${characters[index].id}`);
             expect(link).toBeInTheDocument();
             expect(link).toHaveAttribute('href', `/characters/${characters[index].id}`);
         });
