@@ -5,10 +5,9 @@ import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Legend }
 const ComparePage = () => {
     // change the title of the page
     document.title = "Compare | Marvel App";
-
     // to be replaced with the real data
-    const characters =  useLoaderData();
-    
+
+    const characters = useLoaderData();
 
     // transform the characters to array of label/value objects
     const options = characters.map((character, index) => ({
@@ -20,16 +19,16 @@ const ComparePage = () => {
     const [option1, setOption1] = React.useState(options[0]);
     const [option2, setOption2] = React.useState(options[1]);
 
-
     const centerStyle = {
         textAlign: 'center',
         width: 500,
     };
 
-    const imgStyle = {
-        width: '150px',
-        height: '150px'
-    };
+    const data = Object.keys(characters[option1.value].capacities).map((key) => ({
+        subject: key,
+        [characters[option1.value].name]: characters[option1.value].capacities[key],
+        [characters[option2.value].name]: characters[option2.value].capacities[key],
+    }));
 
     return (
         <>
@@ -45,6 +44,7 @@ const ComparePage = () => {
                             {option.label}
                         </option>
                     ))}
+                    
                 </select>&nbsp; {/* Fix the ambiguous spacing */}
                 with&nbsp;
                 <select
@@ -58,31 +58,28 @@ const ComparePage = () => {
                     ))}
                 </select>
             </p>
-
             <p style={centerStyle}>
-                {characters[option1.value].name} vs {characters[option2.value].name}
+            {characters[option1.value].thumbnail && 
+            <img src={`${characters[option1.value].thumbnail.path}/standard_large.${characters[option1.value].thumbnail.extension}`} alt={characters[option1.value].name}/>
+            }
+            {characters[option1.value].thumbnail && 
+            <img src={`${characters[option2.value].thumbnail.path}/standard_large.${characters[option2.value].thumbnail.extension}`} alt={characters[option2.value].name}/>
+            }
             </p>
-
             <p style={centerStyle}>
-            <img style={imgStyle} src={`${characters[option1.value].thumbnail.path}.${characters[option1.value].thumbnail.extension}`} alt={characters[option1.value].name} />
-            <img style={imgStyle} src={`${characters[option2.value].thumbnail.path}.${characters[option2.value].thumbnail.extension}`} alt={characters[option2.value].name} />
+            <span style={{color: "#8884d8", fontWeight: 'bold'}}>{characters[option1.value].name }</span> vs <span style={{color: "#82ca9d", fontWeight: 'bold'}}>{ characters[option2.value].name}</span>
             </p>
-            
-            <p>
-                <RadarChart outerRadius={90} width={730} height={250} data={data}>
-                <PolarGrid />
-                <PolarAngleAxis dataKey="subject" />
-                <PolarRadiusAxis angle={30} domain={[0, 150]} />
-                <Radar name={characters[option1.value].name} dataKey="A" stroke="#8884d8" fill="#8884d8" fillOpacity={0.6} />
-                <Radar name={characters[option2.value].name} dataKey="B" stroke="#82ca9d" fill="#82ca9d" fillOpacity={0.6} />
-                <Legend />
-                </RadarChart>  
-            </p>
- 
+            <p></p>
+            <RadarChart outerRadius={90} width={730} height={250} data={data}>
+            <PolarGrid />
+            <PolarAngleAxis dataKey="subject" />
+            <PolarRadiusAxis angle={30} domain={[0, 10]} />
+            <Radar name={characters[option1.value].name} dataKey={characters[option1.value].name} stroke="#8884d8" fill="#82ca9d" fillOpacity={0.6} />
+            <Radar name={characters[option2.value].name} dataKey={characters[option2.value].name} stroke="#82ca9d" fill="#8884d8" fillOpacity={0.6} />
+            <Legend />
+            </RadarChart>   
         </>
-        
     );
-    
 };
 
 export default ComparePage;
